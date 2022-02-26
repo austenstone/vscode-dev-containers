@@ -30,6 +30,6 @@ RUN apt install -y nodejs
 RUN apt install -y chromium-browser
 
 # Add a user
-RUN useradd --create-home --shell /usr/bin/zsh --gid sudo ${USERNAME}
+RUN useradd --create-home --shell /usr/bin/zsh --gid sudo "${USERNAME}"
 
 # COPY . .
