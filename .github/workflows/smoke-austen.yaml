@@ -1,74 +1,66 @@
 name: Smoke test "austen" build
 
-on: 
+on:
   workflow_dispatch:
 
   push:
     branches: [main, actions-test]
     paths:
-      - 'containers/austen/**'
+      - "containers/austen/**"
   pull_request:
     branches:
       - main
     paths:
-      - 'containers/austen/**'
+      - "containers/austen/**"
 
 env:
   CONTAINER_NAME: austen
   IMAGE_NAME: ${{ github.repository }}-austen
 
 jobs:
-  dump_contexts_to_log:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dump GitHub context
-        id: github_context_step
-        run: echo '${{ toJSON(github) }}'
-
   smoke-test:
     name: Smoke test
     if: "!contains(github.event.head_commit.message, 'Automated update') && !contains(github.event.head_commit.message, 'CI ignore')"
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Checkout
-      id: checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v2
 
-    - name: Log in to Docker Hub
-      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-    
-    - name: Log in to the Container registry
-      uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-        images:
-          # miltonlaxer/${{ env.IMAGE_NAME }}
-          ghcr.io/${{ env.IMAGE_NAME }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: ./containers/${{ env.CONTAINER_NAME }}
-        file: containers/${{ env.CONTAINER_NAME }}/.devcontainer/Dockerfile
-        push: ${{ github.ref == 'refs/heads/main' }}
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        
-    - name: Smoke test
-      id: smoke_test
-      uses: ./.github/actions/smoke-test
-      with:
-        definition: ${{ env.CONTAINER_NAME }}
-        image: ${{ steps.meta.outputs.tags }}
-        user: root
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images:
+            # miltonlaxer/${{ env.IMAGE_NAME }}
+            ghcr.io/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./containers/${{ env.CONTAINER_NAME }}
+          file: containers/${{ env.CONTAINER_NAME }}/.devcontainer/Dockerfile
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Smoke test
+        id: smoke_test
+        uses: ./.github/actions/smoke-test
+        with:
+          definition: ${{ env.CONTAINER_NAME }}
+          image: ${{ steps.meta.outputs.tags }}
+          user: root
