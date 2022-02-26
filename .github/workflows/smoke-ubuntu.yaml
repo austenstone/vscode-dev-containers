@@ -29,4 +29,4 @@ jobs:
       with:
         definition: ubuntu
         image: mcr.microsoft.com/vscode/devcontainers/base:dev-ubuntu
-        user: vscode
+	"remoteUser": "vscode"
