@@ -10,12 +10,13 @@
 	},
 	"settings": {
 		"terminal.integrated.profiles.linux": {
+			"zsh": {
+				"path": "zsh",
+				"icon": "terminal"
+			},
 			"bash": {
 				"path": "bash",
 				"icon": "terminal-bash"
-			},
-			"zsh": {
-				"path": "zsh"
 			}
 		},
 		"terminal.integrated.defaultProfile.linux": "zsh",
