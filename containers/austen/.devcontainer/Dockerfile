@@ -29,8 +29,9 @@ RUN apt install -y nodejs
 # Chromium
 RUN apt install -y chromium-browser
 
-RUN useradd -ms /usr/bin/zsh ${USERNAME}
-USER ${USERNAME}
-WORKDIR /home/${USERNAME}
+ARG NEWUSER=${USERNAME}
+RUN useradd -ms /usr/bin/zsh ${NEWUSER}
+USER ${NEWUSER}
+WORKDIR /home/${NEWUSER}
 
 # COPY . .
