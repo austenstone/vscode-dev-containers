@@ -1,5 +1,6 @@
 # [Choice] Ubuntu version (https://hub.docker.com/_/ubuntu)
 ARG VARIANT=latest
+ARG USERNAME=astone
 FROM ubuntu:${VARIANT}
 
 WORKDIR /home/
@@ -28,8 +29,8 @@ RUN apt install -y nodejs
 # Chromium
 RUN apt install -y chromium-browser
 
-RUN useradd -ms /usr/bin/zsh astone
-USER astone
-WORKDIR /home/astone
+RUN useradd -ms /usr/bin/zsh ${USERNAME}
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}
 
 # COPY . .
