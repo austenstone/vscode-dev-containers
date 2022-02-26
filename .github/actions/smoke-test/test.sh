@@ -43,7 +43,7 @@ docker exec -u "${USERNAME}" ${container_name} /bin/sh -c  '\
     && if [ "$(id -u)" = "0" ]; then \
         chmod +x test.sh; \
     else \
-        sudo chmod +x test.sh; \
+        chmod +x test.sh; \
     fi \
     && ./test.sh; \
     else \
