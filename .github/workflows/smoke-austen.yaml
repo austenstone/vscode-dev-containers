@@ -71,4 +71,4 @@ jobs:
       with:
         definition: ${{ env.CONTAINER_NAME }}
         image: ${{ steps.meta.outputs.tags }}
-        user: vscode
+        user: root
