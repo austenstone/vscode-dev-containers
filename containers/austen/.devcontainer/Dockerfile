@@ -25,7 +25,10 @@ RUN apt install gh
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt install -y nodejs
 
-# Chrome
+# Chromium
 RUN apt install -y chromium-browser
 
-COPY . .
+USER astone
+WORKDIR /home/astone
+
+# COPY . .
