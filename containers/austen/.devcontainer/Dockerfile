@@ -10,7 +10,8 @@ RUN apt update && apt install -y \
   wget \
   curl \
   git \
-  zsh
+  zsh \
+  sudo
 
 # oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
