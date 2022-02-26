@@ -1,6 +1,5 @@
 # [Choice] Ubuntu version (https://hub.docker.com/_/ubuntu)
 ARG VARIANT=latest
-ARG USERNAME=astone
 FROM ubuntu:${VARIANT}
 
 WORKDIR /home/
@@ -30,6 +29,7 @@ RUN apt install -y nodejs
 RUN apt install -y chromium-browser
 
 # Add a user
+ARG USERNAME=astone
 RUN useradd --create-home --shell /usr/bin/zsh --gid sudo "${USERNAME}"
 
 # COPY . .
