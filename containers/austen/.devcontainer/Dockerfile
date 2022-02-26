@@ -28,6 +28,7 @@ RUN apt install -y nodejs
 # Chromium
 RUN apt install -y chromium-browser
 
+RUN useradd -ms /usr/bin/zsh astone
 USER astone
 WORKDIR /home/astone
 
