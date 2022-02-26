@@ -53,7 +53,7 @@ jobs:
       uses: docker/metadata-action@v3
       with:
         images:
-          miltonlaxer/${{ env.IMAGE_NAME }}
+          # miltonlaxer/${{ env.IMAGE_NAME }}
           ghcr.io/${{ env.IMAGE_NAME }}
 
     - name: Build and push Docker image
