@@ -70,5 +70,5 @@ jobs:
       uses: ./.github/actions/smoke-test
       with:
         definition: ${{ env.CONTAINER_NAME }}
-        image: mcr.microsoft.com/vscode/devcontainers/base:dev-ubuntu
+        image: ${{ steps.meta.outputs.tags }}
         user: vscode
