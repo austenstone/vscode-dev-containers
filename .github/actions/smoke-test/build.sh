@@ -16,11 +16,3 @@ yarn install
 
 # Run test build
 chmod +x build/vscdc
-build/vscdc push  ${DEFINITION} \
-    --no-push \
-    --release dev \
-    --github-repo "microsoft/vscode-dev-containers" \
-    --registry "mcr.microsoft.com" \
-    --registry-path "vscode/devcontainers" \
-    --stub-registry "mcr.microsoft.com" \
-    --stub-registry-path "vscode/devcontainers"
